@@ -69,5 +69,3 @@ browser?.tabs?.query({
             console.error('There has been a problem with fetch websites data:', error);
         });
 });
-
-

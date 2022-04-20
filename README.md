@@ -20,8 +20,8 @@ level of removing the user account of the website which is already registered
 in [rtbf.ir][rtbf.ir], In order to more support you can either [add a new website
 or a service][add new website] or [request for changing the current difficulty][edit website].
 
-[add new website]: https://github.com/rtbf-ir/rtbf.ir/issues/new?assignees=amirshnll%2C+Matin-B&labels=new+website%2Fservice&template=---------------------------.md&title=new+website%2Fservice
-[edit website]: https://github.com/rtbf-ir/rtbf.ir/issues/new?assignees=amirshnll%2C+Matin-B&labels=clarify&template=------------------------.md&title=
+[add new website]: https://github.com/rtbf-ir/rtbf.ir/issues/new?assignees=amirshnll%2C+Matin-B&labels=new+website%2Fservice&template=new-service.md&title=new+website%2Fservice
+[edit website]: https://github.com/rtbf-ir/rtbf.ir/issues/new?assignees=amirshnll%2C+Matin-B&labels=clarify&template=clarify.md&title=
 [rtbf.ir]: https://rtbf.ir
 
 ## Development
@@ -50,6 +50,10 @@ Also, This project has quite backlog of suggestions! If you're new to the projec
 maybe you'd like to open a pull request to address one of them ;)
 
 [issues]: https://github.com/rtbf-ir/firefox-plugin/issues
+
+## Browser Permission
+
+- Read your browsing history
 
 ## Related projects
 
