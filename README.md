@@ -6,7 +6,7 @@
 
 <p align="center">
     <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version">
-    <img src="https://img.shields.io/badge/Firefox ADD-ONS rating-★★★★☆-brightgreen" alt="rating">
+    <img src="https://img.shields.io/badge/Firefox extension rating-★★★★☆-brightgreen" alt="rating">
     <br/>
     <a href="https://twitter.com/intent/follow?screen_name=rtbf_ir">
         <img src="https://img.shields.io/twitter/follow/rtbf_ir?style=social"
@@ -25,6 +25,7 @@ or a service][add new website] or [request for changing the current difficulty][
 [rtbf.ir]: https://rtbf.ir
 
 ## Development
+
 The code scaffolding is:
 `popup.js` for the script, `popup.html` and `popup.css`
 for the look and feel. All the plugin manifest is configured in
@@ -37,6 +38,7 @@ To run it locally you just need to:
 4. Assuming there are no errors, the extension should load into your browser
 
 ## Installing the extension
+
 To install the extension you just need to go to the [Firefox ADD-ONS][Firefox ADD-ONS]
 and search for the [rtbf.ir][rtbf.ir]
 
@@ -73,4 +75,3 @@ maybe you'd like to open a pull request to address one of them ;)
 
 All assets and code are under the [Apache license](LICENSE) and in the public
 domain unless specified otherwise.
-
