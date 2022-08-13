@@ -24,7 +24,9 @@
       "js": [
         "popup.js"
       ],
-      "css": ["popup.css"]
+      "css": [
+        "popup.css"
+      ]
     }
   ]
 }
