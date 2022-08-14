@@ -24,6 +24,10 @@ or a service][add new website] or [request for changing the current difficulty][
 [edit website]: https://github.com/rtbf-ir/rtbf.ir/issues/new?assignees=amirshnll%2C+Matin-B&labels=clarify&template=clarify.md&title=
 [rtbf.ir]: https://rtbf.ir
 
+## Published version - firefox Add-ons
+
+https://addons.mozilla.org/en-US/firefox/addon/right-to-be-forgotten-iran
+
 ## Development
 
 The code scaffolding is:
