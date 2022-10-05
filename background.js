@@ -1,13 +1,18 @@
-chrome.contextMenus.create({
-  title: "وبسایت حق فراموشن شدن",
-  id: "rtbfWebsite",
+browser.runtime.onInstalled.addListener(() => {
+  browser.contextMenus.create(
+    {
+      title: "وبسایت حق فراموش شدن",
+      id: "rtbfWebsite",
+    },
+    () => browser.runtime.lastError
+  );
 });
 
-chrome.contextMenus.onClicked.addListener(function (info, tab) {
+browser.contextMenus.onClicked.addListener(function (info, tab) {
   const { menuItemId } = info;
 
   if (menuItemId === "rtbfWebsite") {
-    chrome.tabs.create({
+    browser.tabs.create({
       url: "http://rtbf.ir",
     });
   }
