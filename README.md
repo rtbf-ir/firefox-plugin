@@ -24,9 +24,6 @@ or a service][add new website] or [request for changing the current difficulty][
 [edit website]: https://github.com/rtbf-ir/rtbf.ir/issues/new?assignees=amirshnll%2C+Matin-B&labels=clarify&template=clarify.md&title=
 [rtbf.ir]: https://rtbf.ir
 
-## Published version - firefox Add-ons
-
-https://addons.mozilla.org/en-US/firefox/addon/right-to-be-forgotten-iran
 
 ## Development
 
@@ -43,8 +40,7 @@ To run it locally you just need to:
 
 ## Installing the extension
 
-To install the extension you just need to go to the [Firefox ADD-ONS][Firefox ADD-ONS]
-and search for the [rtbf.ir][rtbf.ir]
+Published version of the extension is available on [Firefox ADD-ONS](https://addons.mozilla.org/en-US/firefox/addon/right-to-be-forgotten-iran) page.
 
 [Firefox ADD-ONS]: https://addons.mozilla.org/en-US/firefox/
 
@@ -61,7 +57,7 @@ maybe you'd like to open a pull request to address one of them ;)
 
 - Read your browsing history
 
-## Related projects
+## Related Projects
 
 [Wordpress plugin][Wordpress plugin]
 
@@ -80,7 +76,7 @@ maybe you'd like to open a pull request to address one of them ;)
 All assets and code are under the [Apache license](LICENSE) and in the public
 domain unless specified otherwise.
 
-## how to install - tutorial (click on image)
-[![](firefox.png)](https://youtu.be/_mB4RS1aL3A)
+## How to install - Tutorial (click on image)
+[![](assets/images/firefox.png)](https://youtu.be/_mB4RS1aL3A)
 
-**video link:** https://youtu.be/_mB4RS1aL3A
+**Video Link:** https://youtu.be/_mB4RS1aL3A
