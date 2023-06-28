@@ -77,6 +77,6 @@ All assets and code are under the [Apache license](LICENSE) and in the public
 domain unless specified otherwise.
 
 ## How to install - Tutorial (click on image)
-[![](firefox.png)](https://youtu.be/_mB4RS1aL3A)
+[![](assets/images/firefox.png)](https://youtu.be/_mB4RS1aL3A)
 
 **Video Link:** https://youtu.be/_mB4RS1aL3A
