@@ -13,7 +13,7 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 
   if (menuItemId === "rtbfWebsite") {
     browser.tabs.create({
-      url: "http://rtbf.ir",
+      url: "https://rtbf.ir",
     });
   }
 });
