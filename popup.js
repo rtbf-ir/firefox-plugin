@@ -28,6 +28,7 @@ function showDifficulty(item, tabId) {
     keytype: difficulty,
     info,
     deleteurl,
+    name,
   } = item;
 
   changeIcon(difficulty, tabId);
@@ -43,6 +44,8 @@ function showDifficulty(item, tabId) {
     document.querySelector(".remove-button").style.display = "block";
     document.querySelector(".remove-button").href = deleteurl;
   }
+
+  document.querySelector(".service-name").innerText = 'در "' + name + '"';
 
   hideSpinner();
 
@@ -61,13 +64,16 @@ browser?.tabs?.query(
   },
   function (tabs) {
     const currentUrl = tabs[0].url;
+    const urlObj = new URL(currentUrl);
+    const domain = urlObj.hostname;
+
     const tabId = tabs[0].id;
 
     fetch(DATA_URL)
       .then((response) => response.json())
       .then((websites) => {
         for (let item of websites) {
-          if (currentUrl.includes(item.website)) {
+          if (domain === item.website) {
             showDifficulty(item, tabId);
             return;
           }
