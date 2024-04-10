@@ -98,3 +98,16 @@
   padding: 15px 15px 0px 15px;
   direction: rtl;
 }
+
+.close-button {
+  color: red;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-family: dana;
+  direction: rtl;
+  position: absolute;
+  top: 12px;
+  left: 10px
+}
