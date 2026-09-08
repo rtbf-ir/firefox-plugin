@@ -8,9 +8,19 @@
   "action": {
     "default_title": "rtbf.ir",
     "default_popup": "popup.html",
-    "default_icon": { "16": "assets/images/logo.png", "32": "assets/images/logo.png", "48": "assets/images/logo.png" }
+    "default_icon": { "16": "assets/images/logo-16.png", "32": "assets/images/logo.png", "48": "assets/images/logo-48.png" }
   },
-  "background": { "service_worker": "background.js" },
-  "icons": { "16": "assets/images/logo.png", "48": "assets/images/logo.png", "128": "assets/images/logo.png" },
-  "browser_specific_settings": { "gecko": { "id": "right-to-be-forgotten@rtbf.ir" } }
+  "background": { "scripts": ["background.js"] },
+  "icons": {
+    "16": "assets/images/logo-16.png",
+    "32": "assets/images/logo.png",
+    "48": "assets/images/logo-48.png",
+    "128": "assets/images/logo-128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{3bce7dcb-b74a-45f5-8296-0fe0ead6e37b}",
+      "data_collection_permissions": { "required": ["none"] }
+    }
+  }
 }
