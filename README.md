@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/version-1.5.0-blue" alt="version">
+    <img src="https://img.shields.io/badge/version-1.6.0-blue" alt="version">
     <img src="https://img.shields.io/badge/Firefox extension rating-★★★★☆-brightgreen" alt="rating">
     <br/>
     <a href="https://twitter.com/intent/follow?screen_name=rtbf_ir">
@@ -53,9 +53,9 @@ maybe you'd like to open a pull request to address one of them ;)
 
 [issues]: https://github.com/rtbf-ir/firefox-plugin/issues
 
-## Browser Permission
+## Privacy and permissions
 
-- Read your browsing history
+The extension only accesses the active tab after you open it. It requests access to `rtbf.ir` solely to download the public service directory and keeps a 24-hour local cache. See [Privacy policy](PRIVACY.md).
 
 ## Related Projects
 

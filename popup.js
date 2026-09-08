@@ -1,121 +1,43 @@
+const extensionApi = globalThis.browser ?? globalThis.chrome;
 const DATA_URL = "https://rtbf.ir/data/data.json";
-
-const DIFFICULTY_COLORS = {
-  "impossible-label": "#000000",
-  "hard-label": "#a32100",
-  "easy-label": "#129141",
-  "medium-label": "#ffa800",
-};
-
-const DIFFICULTY_IMAGES = {
-  "impossible-label": "/assets/images/d_impossible_logo.png",
-  "hard-label": "/assets/images/d_hard_logo.png",
-  "easy-label": "/assets/images/d_easy_logo.png",
-  "medium-label": "/assets/images/d_medium_logo.png",
-};
-
-function changeIcon(difficulty, tabId) {
-  browser.browserAction.setIcon({ path: DIFFICULTY_IMAGES[difficulty], tabId });
-}
-
-function hideSpinner() {
-  document.querySelector(".spinner-container").style.display = "none";
-}
-
+const CACHE_KEY = "rtbfDirectory";
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const DIFFICULTY_COLORS = { "impossible-label": "#000000", "hard-label": "#a32100", "easy-label": "#129141", "medium-label": "#ffa800" };
+const DIFFICULTY_IMAGES = { "impossible-label": "assets/images/d_impossible_logo.png", "hard-label": "assets/images/d_hard_logo.png", "easy-label": "assets/images/d_easy_logo.png", "medium-label": "assets/images/d_medium_logo.png" };
+function cacheAgeLabel(timestamp) { return new Intl.DateTimeFormat("fa-IR", { dateStyle: "short", timeStyle: "short" }).format(timestamp); }
+function showStatus(message, isError = false) { const status = document.querySelector(".data-status"); status.textContent = message; status.classList.toggle("is-error", isError); status.hidden = false; }
+function hideSpinner() { document.querySelector(".spinner-container").style.display = "none"; }
+function changeIcon(difficulty, tabId) { if (DIFFICULTY_IMAGES[difficulty]) extensionApi.action.setIcon({ path: DIFFICULTY_IMAGES[difficulty], tabId }); }
 function showDifficulty(item, tabId) {
-  const {
-    difficulty: difficultyLabel,
-    keytype: difficulty,
-    info,
-    deleteurl,
-    name,
-  } = item;
-
-  changeIcon(difficulty, tabId);
-
-  document.querySelector(".difficulty-text").innerText = difficultyLabel;
-  document.querySelector(".difficulty-text").style.backgroundColor =
-    DIFFICULTY_COLORS[difficulty];
-  document
-    .querySelector(".difficulty-info")
-    .insertAdjacentHTML("afterbegin", info);
-
-  if (deleteurl !== "#") {
-    document.querySelector(".remove-button").style.display = "block";
-    document.querySelector(".remove-button").href = "https://" + deleteurl;
+  const { difficulty: label, keytype, info, deleteurl, name } = item;
+  changeIcon(keytype, tabId);
+  const difficulty = document.querySelector(".difficulty-text");
+  difficulty.textContent = label; difficulty.style.backgroundColor = DIFFICULTY_COLORS[keytype] || "#666";
+  document.querySelector(".difficulty-info").textContent = info || "";
+  const removeButton = document.querySelector(".remove-button");
+  if (deleteurl && deleteurl !== "#") { removeButton.style.display = "block"; removeButton.href = /^https?:\/\//i.test(deleteurl) ? deleteurl : `https://${deleteurl}`; }
+  document.querySelector(".service-name").textContent = `در «${name}»`;
+  hideSpinner(); document.querySelector(".difficulty-container").style.display = "flex";
+}
+function showNotSupported() { hideSpinner(); document.querySelector(".not-supported-container").style.display = "block"; }
+async function getDirectory() {
+  const cached = (await extensionApi.storage.local.get(CACHE_KEY))[CACHE_KEY];
+  if (cached?.data && Date.now() - cached.fetchedAt < CACHE_TTL_MS) { showStatus(`اطلاعات: آخرین به‌روزرسانی ${cacheAgeLabel(cached.fetchedAt)}`); return cached.data; }
+  try {
+    const response = await fetch(DATA_URL); if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json(); await extensionApi.storage.local.set({ [CACHE_KEY]: { data, fetchedAt: Date.now() } });
+    showStatus("اطلاعات به‌تازگی از rtbf.ir به‌روزرسانی شد."); return data;
+  } catch (error) {
+    if (cached?.data) { showStatus(`اتصال برقرار نشد؛ نسخهٔ ذخیره‌شدهٔ ${cacheAgeLabel(cached.fetchedAt)} نمایش داده می‌شود.`, true); return cached.data; }
+    throw error;
   }
-
-  document.querySelector(".service-name").innerText = 'در "' + name + '"';
-
-  hideSpinner();
-
-  document.querySelector(".difficulty-container").style.display = "flex";
 }
-
-function showNotSupported() {
-  hideSpinner();
-  document.querySelector(".not-supported-container").style.display = "block";
+async function initialize() {
+  try {
+    const [tab] = await extensionApi.tabs.query({ active: true, lastFocusedWindow: true });
+    if (!tab?.url || !/^https?:/i.test(tab.url)) throw new Error("unsupported-url");
+    const item = RTBFDomainUtils.findWebsite(await getDirectory(), new URL(tab.url).hostname);
+    item ? showDifficulty(item, tab.id) : showNotSupported();
+  } catch (error) { hideSpinner(); showStatus(error.message === "unsupported-url" ? "این صفحه قابل بررسی نیست؛ یک وب‌سایت معمولی را باز کنید." : "دریافت فهرست سرویس‌ها ممکن نشد. اتصال اینترنت را بررسی کرده و دوباره تلاش کنید.", true); }
 }
-
-function getDomainParts(hostname) {
-  return hostname.split('.').reverse();
-}
-
-function isSubdomainMatch(currentDomain, websiteDomain) {
-  const currentParts = getDomainParts(currentDomain);
-  const websiteParts = getDomainParts(websiteDomain);
-
-  // Website should have equal or fewer parts than current domain
-  if (websiteParts.length > currentParts.length) return false;
-
-  // Check if all parts of website domain match with current domain from right to left
-  for (let i = 0; i < websiteParts.length; i++) {
-    if (websiteParts[i] !== currentParts[i]) return false;
-  }
-
-  return true;
-}
-
-browser?.tabs?.query(
-  {
-    active: true,
-    lastFocusedWindow: true,
-  },
-  function (tabs) {
-    const currentUrl = tabs[0].url;
-    const urlObj = new URL(currentUrl);
-    const domain = urlObj.hostname;
-
-    const tabId = tabs[0].id;
-
-    fetch(DATA_URL)
-      .then((response) => response.json())
-      .then((websites) => {
-        for (let item of websites) {
-          if (isSubdomainMatch(domain, item.website)) {
-            showDifficulty(item, tabId);
-            return;
-          }
-        }
-
-        showNotSupported();
-      })
-      .catch((error) => {
-        console.error(
-          "There has been a problem with fetch websites data:",
-          error
-        );
-      });
-  }
-);
-
-document.addEventListener("DOMContentLoaded", function () {
-  var closeButton = document.getElementById("closeButton");
-  closeButton.addEventListener(
-    "click",
-    function () {
-      window.close();
-    },
-    false
-  );
-});
+document.addEventListener("DOMContentLoaded", () => { document.getElementById("closeButton").addEventListener("click", () => window.close()); initialize(); });
