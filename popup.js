@@ -18,6 +18,7 @@ function showDifficulty(item, tabId) {
   if (deleteurl && deleteurl !== "#") { removeButton.style.display = "block"; removeButton.href = /^https?:\/\//i.test(deleteurl) ? deleteurl : `https://${deleteurl}`; }
   document.querySelector(".service-name").textContent = `در «${name}»`;
   hideSpinner(); document.querySelector(".difficulty-container").style.display = "flex";
+  void RTBFServiceIcons.show(item.website);
 }
 function showNotSupported() { hideSpinner(); document.querySelector(".not-supported-container").style.display = "block"; }
 async function getDirectory() {

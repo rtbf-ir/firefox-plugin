@@ -6,4 +6,6 @@ It does not collect browsing history, credentials, form content, cookies, person
 
 The only network request is for `https://rtbf.ir/data/data.json`.
 
+Service icons are included in the extension package from the main RTBF project and read locally. Loading an icon sends no request to RTBF, the visited website, or a third-party favicon provider.
+
 Contact: info [at] rtbf [dot] ir
